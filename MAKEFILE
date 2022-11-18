@@ -1,0 +1,20 @@
+all: item.o set.o avl.o main.o
+	gcc item.o set.o avl.o main.o -o conjunto -std=c99 -Wall
+	
+item.o: 
+	gcc -c item.c -o item.o
+
+set.o: 
+	gcc -c set.c -o set.o
+
+avl.o: 
+	gcc -c avl.c -o avl.o
+
+main.o:
+	gcc -c main.c -o main.o
+	 
+clean:
+	rm *.o conjunto
+
+run:
+	./conjunto
