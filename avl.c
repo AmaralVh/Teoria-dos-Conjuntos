@@ -18,12 +18,35 @@ avl *avl_criar() {
     return p;
 }
 
-
+// remodelando caso rotacao EE
 no *rotacao_EE(no *desb) {
     no *aux = desb->dir;
-    desb
+    desb->dir = aux->esq;
+    aux->esq = desb;
+
+    return aux;
 }
 
+// remodelando caso a rotacao DD
+no *rotacao_DD (no *desb){
+    no *aux = desb->esq;
+    desb->esq = aux->dir;
+    aux->dir = desb;
+
+    return aux;
+}
+// remodelando caso haja 2 rotacao 
+// caso ED
+no *rotacao_ED(no *desb){
+    desb->esq = rotacao_EE(desb->esq);
+    return rotacao_DD(desb);
+}
+
+// caso DE
+no *rotacao_DE(no *desb){
+    desb->dir = rotacao_DD(desb->dir);
+    return rotacao_EE(desb);
+}
 
 no *avl_insere(no *raiz, item *x, int *flag) {
     if (raiz != NULL) {
