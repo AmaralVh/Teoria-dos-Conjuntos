@@ -62,13 +62,20 @@ no *avl_insere(no *raiz, item *x, int *flag) {
                         } else {
                             raiz = rotacao_ED(raiz);
                             if(raiz->fb == -1) {
-
+                                raiz->esq->fb = 1;
+                                raiz->dir->fb = 0;
+                                raiz->fb = 0;
                             } else if(raiz->fb == 1) {
-
+                                raiz->esq->fb = 0;
+                                raiz->dir->fb = -1;
+                                raiz->fb = 0;
                             } else { // raiz->fb == 0
-
+                                raiz->esq->fb = 0;
+                                raiz->dir->fb = 0;
+                                raiz->fb = 0;
                             }
                         }
+                        *flag = 0;
                         break;
                     case 0:
                         raiz->fb = 1;
@@ -82,6 +89,7 @@ no *avl_insere(no *raiz, item *x, int *flag) {
             }
         } else if (get_valor(x) > raiz->info) {
             raiz->dir = avl_insere(raiz->dir, x, flag);
+            // FALTA FAZER AS ROTACOES PARA ESSE CASO AQUI ............
         } else {
             printf("Elemento ja existe no conjunto!\n");
         }
