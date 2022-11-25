@@ -21,7 +21,7 @@ void set_valor(item *e, elem x) {
 	}
 }
 
-elem get_valor(item *e) {
+int get_valor(item *e) {
 	if(e != NULL) {
 		return e->valor;
 	}

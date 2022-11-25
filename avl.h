@@ -1,6 +1,7 @@
 #ifndef AVL_H
 #define AVL_H
 
+#include <stdbool.h>
 #include "item.h"
 
 typedef struct no_t no;
