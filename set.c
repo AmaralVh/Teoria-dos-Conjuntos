@@ -13,7 +13,7 @@ struct set {
 SET *set_criar(void) {
     SET *A = (SET *) malloc(sizeof(SET));
 
-    A = avl_criar();
+    A->conjunto = avl_criar();
 
     return A;
 }
@@ -25,7 +25,8 @@ bool set_pertence(SET *A, int elemento) {
 
 //inserindo elemento
 bool set_inserir (SET *s, int elemento) {
-
+    item *x = criar_item(elemento);
+    avl_inserir(s->conjunto, x);
 }
 
 // removendo elemento
@@ -35,12 +36,17 @@ bool set_remover(SET *s, int elemento) {
 
 //apagando conjunto
 void set_apagar(SET **s) {
-
+    deletar_AVL((*s)->conjunto->raiz);
+    free((*s)->conjunto);
+    (*s)->conjunto = NULL;
+    free(*s);
+    *s = NULL;
 }
 
 // imprimindo conjunto
 void set_imprimir(SET *s) {
-
+    printf("Conjunto: ");
+    avl_imprimir(s->conjunto->raiz);
 }
 
 // unindo conjuntos

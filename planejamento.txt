@@ -4,10 +4,10 @@ TAD: Árvore AVL
 
 Operações Básicas:
     - Criar Conjunto (cria_arvore)   OK
-    - Apagar Conjunto (apaga_arvore)
-    - Inserir Elemento (insere_item)
-    - Remover Elemento (remove_item)
-    - Imprimir Conjunto (imprime_arvore)
+    - Apagar Conjunto (apaga_arvore) OK
+    - Inserir Elemento (insere_item) OK
+    - Remover Elemento (remove_item) 
+    - Imprimir Conjunto (imprime_arvore) OK
 
 Operações Específicas:
     - Pertence (Verifica se item pertence à árvore)
