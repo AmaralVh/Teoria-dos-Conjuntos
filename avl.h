@@ -12,5 +12,14 @@ typedef struct avl_t {
 
 avl *avl_criar();
 
+no *avl_insere(no *raiz, item *x, int *flag);
+
+void avl_inserir(avl *p, item *x);
+
+void avl_imprimir(no *p);
+
+bool esta_vazia(avl *p);
+
+void deletar_AVL(no *p);
 
 #endif

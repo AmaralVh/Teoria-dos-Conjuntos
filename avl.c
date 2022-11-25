@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <assert.h>
 #include "avl.h"
 
@@ -108,4 +109,35 @@ no *avl_insere(no *raiz, item *x, int *flag) {
 void avl_inserir(avl *p, item *x) {
     int flag = 0;
     p->raiz = avl_insere(p->raiz, x, &flag);
+}
+
+void avl_imprimir(no *p){
+    if(p != NULL){
+        printf("%d ", get_valor(p->info));
+        // chamando recursivamente para impressao
+        avl_imprimir(p->esq);
+        avl_imprimir(p->dir);
+    }else
+        return NULL;
+
+}
+
+//verificando se esta vazia
+bool esta_vazia(avl *p){
+    assert(p != NULL);
+
+    if(p->raiz == NULL)
+        return true;
+
+    return false;
+}
+
+//  problema
+
+void deletar_AVL(no *p){
+    if(p != NULL){
+        deletar_AVL(p->esq);
+        deletar_AVL(p->dir);
+        free(p);
+    }
 }

@@ -3,6 +3,7 @@
 
 #include "avl.h"
 #include "item.h"
+#include <stdbool.h>
 
 typedef struct set SET;
 
