@@ -21,10 +21,15 @@ int main(int argc, char *argv[]) {
 
   }
 
+  printf("Conjunto inteiro: ");
+  set_imprimir(Conj_A);
+  set_remover(Conj_A, 3);
+
+  printf("\n\nConjunto apos a remocao: ");
   set_imprimir(Conj_A);
 
   set_apagar(&Conj_A);
-  printf("Conjunto apagado.\n");
+  printf("\nConjunto apagado.\n");
     
   return 0;
 }

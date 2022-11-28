@@ -26,12 +26,28 @@ bool set_pertence(SET *A, int elemento) {
 //inserindo elemento
 bool set_inserir (SET *s, int elemento) {
     item *x = criar_item(elemento);
-    avl_inserir(s->conjunto, x);
+    int flag = 0;
+    no *p = avl_insere(s->conjunto->raiz, x, &flag);
+
+    if(p == NULL) {
+        return false;
+    }
+
+    s->conjunto->raiz = p;
+    return true;
 }
 
 // removendo elemento
 bool set_remover(SET *s, int elemento) {
+    int flag = 0;
+    no *p = avl_remove(s->conjunto->raiz, elemento, &flag);
 
+    if(p == NULL) {
+        return false;
+    }
+
+    s->conjunto->raiz = p;
+    return true;
 }
 
 //apagando conjunto
@@ -45,7 +61,7 @@ void set_apagar(SET **s) {
 
 // imprimindo conjunto
 void set_imprimir(SET *s) {
-    printf("Conjunto: ");
+    //printf("Conjunto: ");
     avl_imprimir(s->conjunto->raiz);
 }
 

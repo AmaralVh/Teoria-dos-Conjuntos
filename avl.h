@@ -6,16 +6,16 @@
 
 typedef struct no_t no;
 
-typedef struct avl_t {
+typedef struct avl_t
+{
     no *raiz;
 } avl;
-
 
 avl *avl_criar();
 
 no *avl_insere(no *raiz, item *x, int *flag);
 
-void avl_inserir(avl *p, item *x);
+no *avl_remove(no *raiz, int x, int *h);
 
 void avl_imprimir(no *p);
 
