@@ -183,6 +183,7 @@ no *balanceamento_para_esquerda(no *p, int *h) {
             }
             break;
     }
+    return p;
 }
 
 no *balanceamento_para_direita(no *p, int *h) {
@@ -224,6 +225,7 @@ no *balanceamento_para_direita(no *p, int *h) {
             }
             break;
     }
+    return p;
 }
 
 
@@ -240,6 +242,7 @@ no *busca_e_remove(no *p, no *no_chave, int *h) {
         set_valor(no_chave->info, get_valor(p->info));
         aux = p;
         p = p->esq;
+        apagar_item(&(aux->info));
         free(aux);
         *h = 1;
     }
@@ -248,36 +251,40 @@ no *busca_e_remove(no *p, no *no_chave, int *h) {
 
 
 // Funcao recursiva de remocao de elemento:
-no *avl_remove(no *raiz, int x, int *h) {
+no *avl_remove(no *raiz, int x, int *h, int *achou) {
+    printf("Entrei no avl_remove.\n");
     no *aux;
-
     if(raiz == NULL) { // Arvore vazia ou fim de uma folha.
         printf("Chave nao foi encontrada.\n");
         *h = 0;
-        return NULL;
+        *achou = 0;
     } else if(x < get_valor(raiz->info)) { // Elemento eh menor que a raiz, entao chama a remocao para a esquerda.
-        raiz->esq = avl_remove(raiz->esq, x, h);
+        raiz->esq = avl_remove(raiz->esq, x, h, achou);
         if(*h == 1) {
             raiz = balanceamento_para_esquerda(raiz, h);
         }
     } else if(x > get_valor(raiz->info)) { // Elemento eh maior que a raiz, entao chama a remocao para a direita.
-        raiz->dir = avl_remove(raiz->dir, x, h);
+        raiz->dir = avl_remove(raiz->dir, x, h, achou);
         if(*h == 1) {
             raiz = balanceamento_para_direita(raiz, h);
         }
     } else { // Encontrou o elemento na arvore, entao remove.
         printf("Encontrei o elemento %d, vou remover!\n", x);
         if(raiz->dir == NULL) {
+            printf("Nao tem filho direito.\n");
             aux = raiz;
             raiz = raiz->esq;
-            free(aux);
+            apagar_item(&(aux->info));
+            printf("Apagaou o item de aux\n");
             *h = 1;
         } else if(raiz->esq == NULL) {
+            printf("Nao tem filho esquerdo.\n");
             aux = raiz;
             raiz = raiz->dir;
-            free(aux);
+            apagar_item(&(aux->info));
             *h = 1;
         } else {
+            printf("Tem filho direito e esquerdo.\n");
             // Funcao para remover no com dois filhos:
             raiz->esq = busca_e_remove(raiz->esq, raiz, h);
             if(*h == 1) {
@@ -285,11 +292,9 @@ no *avl_remove(no *raiz, int x, int *h) {
             }
         }
     }
-
+    avl_imprimir(raiz);
     return raiz;
 }
-
-// ---------------------------- TA DANDO SEG FAULT NA REMOCAO QUANDO O CONJUNTO EH GRANDE ------------
 
 
 // Funcao recursiva de busca no avl:
@@ -309,10 +314,12 @@ bool avl_busca(no *raiz, int chave) {
 
 void avl_imprimir(no *p){
     if(p != NULL){
-        printf("%d ", get_valor(p->info));
+        printf("%d(", get_valor(p->info));
         // chamando recursivamente para impressao
         avl_imprimir(p->esq);
+        printf(",");
         avl_imprimir(p->dir);
+        printf(")");
     }
 
 }

@@ -21,19 +21,22 @@ int main(int argc, char *argv[]) {
 
   }
 
-  printf("Digite um elemento que deseja verificar se pertence ao conjunto: ");
-  scanf("%d", &elemento);
+  // printf("Digite um elemento que deseja verificar se pertence ao conjunto: ");
+  // scanf("%d", &elemento);
 
-  if(set_pertence(Conj_A, elemento)) {
-    printf("Pertence.\n");
-  } else {
-    printf("Nao pertence.\n");
-  }
+  // if(set_pertence(Conj_A, elemento)) {
+  //   printf("Pertence.\n");
+  // } else {
+  //   printf("Nao pertence.\n");
+  // }
 
 
   printf("Conjunto inteiro: ");
   set_imprimir(Conj_A);
-  set_remover(Conj_A, 3);
+  
+  if(set_remover(Conj_A, 7)) {
+    printf("Elemento removido com sucesso.\n");
+  }
 
   printf("\n\nConjunto apos a remocao: ");
   set_imprimir(Conj_A);

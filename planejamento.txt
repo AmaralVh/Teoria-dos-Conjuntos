@@ -6,7 +6,7 @@ Operações Básicas:
     - Criar Conjunto (cria_arvore)   OK
     - Apagar Conjunto (apaga_arvore) OK
     - Inserir Elemento (insere_item) OK
-    - Remover Elemento (remove_item) SEG FAULT
+    - Remover Elemento (remove_item) OK
     - Imprimir Conjunto (imprime_arvore) OK
 
 Operações Específicas:

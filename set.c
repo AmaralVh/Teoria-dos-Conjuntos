@@ -45,14 +45,13 @@ bool set_inserir (SET *s, int elemento) {
 // removendo elemento
 bool set_remover(SET *s, int elemento) {
     int flag = 0;
-    no *p = avl_remove(s->conjunto->raiz, elemento, &flag);
+    int achou = 1;
+    s->conjunto->raiz = avl_remove(s->conjunto->raiz, elemento, &flag, &achou);
 
-    if(p == NULL) {
-        return false;
+    if(achou == 1) {
+        return true;
     }
-
-    s->conjunto->raiz = p;
-    return true;
+    return false;
 }
 
 //apagando conjunto
