@@ -5,7 +5,7 @@
 int main(int argc, char *argv[]) {
   SET *Conj_A;
   int num_a, num;
-  int op;
+  int elemento;
 
   // Cria o conjunto:
   Conj_A = set_criar();
@@ -20,6 +20,16 @@ int main(int argc, char *argv[]) {
     set_inserir(Conj_A, num);
 
   }
+
+  printf("Digite um elemento que deseja verificar se pertence ao conjunto: ");
+  scanf("%d", &elemento);
+
+  if(set_pertence(Conj_A, elemento)) {
+    printf("Pertence.\n");
+  } else {
+    printf("Nao pertence.\n");
+  }
+
 
   printf("Conjunto inteiro: ");
   set_imprimir(Conj_A);

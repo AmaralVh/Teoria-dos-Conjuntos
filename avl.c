@@ -266,6 +266,7 @@ no *avl_remove(no *raiz, int x, int *h) {
             raiz = balanceamento_para_direita(raiz, h);
         }
     } else { // Encontrou o elemento na arvore, entao remove.
+        printf("Encontrei o elemento %d, vou remover!\n", x);
         if(raiz->dir == NULL) {
             aux = raiz;
             raiz = raiz->esq;
@@ -288,6 +289,24 @@ no *avl_remove(no *raiz, int x, int *h) {
     return raiz;
 }
 
+// ---------------------------- TA DANDO SEG FAULT NA REMOCAO QUANDO O CONJUNTO EH GRANDE ------------
+
+
+// Funcao recursiva de busca no avl:
+bool avl_busca(no *raiz, int chave) {
+    if(raiz == NULL) {
+        return false;
+    } else if(get_valor(raiz->info) == chave) {
+        return true;
+    } else if(get_valor(raiz->info) > chave) {
+        return avl_busca(raiz->esq, chave);
+    } else {
+        return avl_busca(raiz->dir, chave);
+    }
+}
+
+
+
 void avl_imprimir(no *p){
     if(p != NULL){
         printf("%d ", get_valor(p->info));
@@ -297,6 +316,7 @@ void avl_imprimir(no *p){
     }
 
 }
+
 
 //verificando se esta vazia
 bool esta_vazia(avl *p){

@@ -17,6 +17,8 @@ no *avl_insere(no *raiz, item *x, int *flag);
 
 no *avl_remove(no *raiz, int x, int *h);
 
+bool avl_busca(no *raiz, int chave);
+
 void avl_imprimir(no *p);
 
 bool esta_vazia(avl *p);

@@ -20,7 +20,12 @@ SET *set_criar(void) {
 
 // verificando se pertence
 bool set_pertence(SET *A, int elemento) {
+    if(A->conjunto == NULL) {
+        exit(1);
+    }
 
+    // A verificacao de pertencimento se resume a uma busca na arvore:
+    return avl_busca(A->conjunto->raiz, elemento);
 }
 
 //inserindo elemento
