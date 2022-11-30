@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "item.h"
 #include "set.h"
+#include "avl.h"
 
 
 struct set {
@@ -69,14 +70,28 @@ void set_imprimir(SET *s) {
     avl_imprimir(s->conjunto->raiz);
 }
 
-// unindo conjuntos
-SET *set_uniao(SET *A, SET *B) {
-
-}
 
 // verificando interseccoes entre conjuntos
 SET *set_interseccao(SET *A, SET *B) {
+    // Conjunto C = interseccao
+    SET *C = set_criar();
+    avl_percorre(A->conjunto->raiz, B, C, 1);
 
+    if (C->conjunto->raiz == NULL)
+        printf(" Vazio \n");
+
+    return C;
 }
 
+
+// unindo conjuntos
+SET *set_uniao(SET *A, SET *B) {
+
+    SET *C = set_criar();
+    C = set_interseccao(A, B);
+
+    avl_percorre(B->conjunto->raiz, C, A, 0);
+
+
+}
   

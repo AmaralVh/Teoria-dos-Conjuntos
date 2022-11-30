@@ -3,46 +3,70 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[]) {
-  SET *Conj_A;
-  int num_a, num;
-  int elemento;
+  SET *Conj_A, *Conj_B;
+  int num_a, num_b, num;
+  int op;
 
-  // Cria o conjunto:
+// Cria os dois conjuntos:
   Conj_A = set_criar();
+  Conj_B = set_criar();
 
-  // Recebe os tamanho do conjunto:
-  scanf("%d", &num_a);
-  printf("Recebi o tamanho do conjunto.\n");
+// Recebe os tamanhos dos conjuntos:
+  printf("Coloque os dois tamanhos: ");
+  scanf("%d %d", &num_a, &num_b);
 
-  // Preenche o conjunto A:
+// Preenche o conjunto A:
+  printf("Preencha o conjunto A:\n");
   for(int i=0; i<num_a; i++) {
     scanf("%d",&num);
     set_inserir(Conj_A, num);
 
   }
+// Preenche o conjunto B:
+  printf("Preencha o conjunto B:\n");
+  for(int i=0; i<num_b; i++) {
+    scanf("%d",&num);
+    set_inserir(Conj_B, num);
 
-  // printf("Digite um elemento que deseja verificar se pertence ao conjunto: ");
-  // scanf("%d", &elemento);
-
-  // if(set_pertence(Conj_A, elemento)) {
-  //   printf("Pertence.\n");
-  // } else {
-  //   printf("Nao pertence.\n");
-  // }
-
-
-  printf("Conjunto inteiro: ");
-  set_imprimir(Conj_A);
-  
-  if(set_remover(Conj_A, 7)) {
-    printf("Elemento removido com sucesso.\n");
   }
 
-  printf("\n\nConjunto apos a remocao: ");
-  set_imprimir(Conj_A);
+// Recebe a operacao a ser feita:
+  printf("Digite a operacao que deseja fazer: ");
+  scanf("%d", &op);
+
+  switch(op) {
+    // verificar se pertence
+    case 1: {
+              int aux;
+              scanf("%d", &aux);
+              if(set_pertence(Conj_A,aux)) 
+                printf("Pertence.\n");
+              else
+                printf("Nao Pertence.\n");
+              break;
+    } // Uni conjuntos
+    case 2: {
+              SET *Conj_C = set_uniao(Conj_A,Conj_B);
+              set_imprimir(Conj_C);
+              set_apagar(&Conj_C);
+              break;
+    } // ve a interseccao
+    case 3: {
+              SET *Conj_C = set_interseccao(Conj_A, Conj_B);
+              set_imprimir(Conj_C);
+              set_apagar(&Conj_C);
+              break;
+    } // remove num
+    case 4: { 
+              int aux;
+              scanf("%d", &aux);
+              set_remover(Conj_A,aux);
+              set_imprimir(Conj_A); 
+    }
+  }
 
   set_apagar(&Conj_A);
-  printf("\nConjunto apagado.\n");
+  set_apagar(&Conj_B);
     
   return 0;
 }

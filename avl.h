@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "item.h"
+#include "set.h"
 
 typedef struct no_t no;
 
@@ -20,6 +21,8 @@ no *avl_remove(no *raiz, int x, int *h, int *achou);
 bool avl_busca(no *raiz, int chave);
 
 void avl_imprimir(no *p);
+
+void avl_percorre(no *p, SET *conjunto_b, SET *conjunto_c, int operacao);
 
 bool esta_vazia(avl *p);
 

@@ -1,7 +1,6 @@
 #ifndef _SET_H
 #define _SET_H
 
-#include "avl.h"
 #include "item.h"
 #include <stdbool.h>
 

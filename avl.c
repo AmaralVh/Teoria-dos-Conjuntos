@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <assert.h>
 #include "avl.h"
+#include "set.h"
 
 struct no_t {
     no *esq, *dir;
@@ -252,7 +253,6 @@ no *busca_e_remove(no *p, no *no_chave, int *h) {
 
 // Funcao recursiva de remocao de elemento:
 no *avl_remove(no *raiz, int x, int *h, int *achou) {
-    printf("Entrei no avl_remove.\n");
     no *aux;
     if(raiz == NULL) { // Arvore vazia ou fim de uma folha.
         printf("Chave nao foi encontrada.\n");
@@ -269,22 +269,17 @@ no *avl_remove(no *raiz, int x, int *h, int *achou) {
             raiz = balanceamento_para_direita(raiz, h);
         }
     } else { // Encontrou o elemento na arvore, entao remove.
-        printf("Encontrei o elemento %d, vou remover!\n", x);
         if(raiz->dir == NULL) {
-            printf("Nao tem filho direito.\n");
             aux = raiz;
             raiz = raiz->esq;
             apagar_item(&(aux->info));
-            printf("Apagaou o item de aux\n");
             *h = 1;
         } else if(raiz->esq == NULL) {
-            printf("Nao tem filho esquerdo.\n");
             aux = raiz;
             raiz = raiz->dir;
             apagar_item(&(aux->info));
             *h = 1;
         } else {
-            printf("Tem filho direito e esquerdo.\n");
             // Funcao para remover no com dois filhos:
             raiz->esq = busca_e_remove(raiz->esq, raiz, h);
             if(*h == 1) {
@@ -292,7 +287,6 @@ no *avl_remove(no *raiz, int x, int *h, int *achou) {
             }
         }
     }
-    avl_imprimir(raiz);
     return raiz;
 }
 
@@ -322,6 +316,32 @@ void avl_imprimir(no *p){
         printf(")");
     }
 
+}
+
+
+void avl_percorre(no *p, SET *conjunto_b, SET *conjunto_c, int operacao){
+
+    if(p != NULL){
+        switch (operacao) {
+            case 1:
+                if(set_pertence(conjunto_b, get_valor(p->info))) {
+                    set_inserir(conjunto_c, get_valor(p->info));
+                }
+                break;
+            
+            case 0:
+                if(!set_pertence(conjunto_b, get_valor(p->info))) {
+                    set_inserir(conjunto_c, get_valor(p->info));
+                }
+                break;
+
+        }
+
+        // percorrendo recursivamente:
+        avl_percorre(p->esq, conjunto_b, conjunto_c, operacao);
+                
+        avl_percorre(p->dir, conjunto_b, conjunto_c, operacao);
+    }
 }
 
 
