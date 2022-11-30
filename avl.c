@@ -323,18 +323,19 @@ void avl_percorre(no *p, SET *conjunto_b, SET *conjunto_c, int operacao){
 
     if(p != NULL){
         switch (operacao) {
-            case 1:
+            case 0:
                 if(set_pertence(conjunto_b, get_valor(p->info))) {
                     set_inserir(conjunto_c, get_valor(p->info));
                 }
                 break;
             
-            case 0:
+            case 1:
                 if(!set_pertence(conjunto_b, get_valor(p->info))) {
                     set_inserir(conjunto_c, get_valor(p->info));
                 }
                 break;
-
+            case 2:
+                set_inserir(conjunto_c, get_valor(p->info));
         }
 
         // percorrendo recursivamente:

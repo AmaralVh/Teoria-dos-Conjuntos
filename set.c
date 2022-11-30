@@ -75,7 +75,7 @@ void set_imprimir(SET *s) {
 SET *set_interseccao(SET *A, SET *B) {
     // Conjunto C = interseccao
     SET *C = set_criar();
-    avl_percorre(A->conjunto->raiz, B, C, 1);
+    avl_percorre(A->conjunto->raiz, B, C, 0);
 
     if (C->conjunto->raiz == NULL)
         printf(" Vazio \n");
@@ -88,10 +88,11 @@ SET *set_interseccao(SET *A, SET *B) {
 SET *set_uniao(SET *A, SET *B) {
 
     SET *C = set_criar();
-    C = set_interseccao(A, B);
 
-    avl_percorre(B->conjunto->raiz, C, A, 0);
+    avl_percorre(A->conjunto->raiz, A, C, 2);
+    avl_percorre(B->conjunto->raiz, A, C, 1);
+    printf("Acabei de percorrer e preencher a uniao.\n");
 
-
+    return C;
 }
   
