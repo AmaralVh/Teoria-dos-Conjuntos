@@ -7,8 +7,7 @@
 
 typedef struct no_t no;
 
-typedef struct avl_t
-{
+typedef struct avl_t {
     no *raiz;
 } avl;
 
@@ -22,10 +21,14 @@ bool avl_busca(no *raiz, int chave);
 
 void avl_imprimir(no *p);
 
-void avl_percorre(no *p, SET *conjunto_b, SET *conjunto_c, int operacao);
-
 bool esta_vazia(avl *p);
 
 void deletar_AVL(no *p);
+
+int retorna_info(no *p);
+
+no *retorna_filho_esq(no *p);
+
+no *retorna_filho_dir(no *p);
 
 #endif

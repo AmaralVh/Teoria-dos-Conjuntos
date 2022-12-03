@@ -3,13 +3,13 @@
 #include <stdbool.h>
 #include <assert.h>
 #include "avl.h"
-#include "set.h"
 
 struct no_t {
     no *esq, *dir;
     item *info;
     int fb;
 };
+
 
 // Funcao que cria arvore avl:
 avl *avl_criar() {
@@ -319,33 +319,6 @@ void avl_imprimir(no *p){
 }
 
 
-void avl_percorre(no *p, SET *conjunto_b, SET *conjunto_c, int operacao){
-
-    if(p != NULL){
-        switch (operacao) {
-            case 0:
-                if(set_pertence(conjunto_b, get_valor(p->info))) {
-                    set_inserir(conjunto_c, get_valor(p->info));
-                }
-                break;
-            
-            case 1:
-                if(!set_pertence(conjunto_b, get_valor(p->info))) {
-                    set_inserir(conjunto_c, get_valor(p->info));
-                }
-                break;
-            case 2:
-                set_inserir(conjunto_c, get_valor(p->info));
-        }
-
-        // percorrendo recursivamente:
-        avl_percorre(p->esq, conjunto_b, conjunto_c, operacao);
-                
-        avl_percorre(p->dir, conjunto_b, conjunto_c, operacao);
-    }
-}
-
-
 //verificando se esta vazia
 bool esta_vazia(avl *p){
     assert(p != NULL);
@@ -363,4 +336,17 @@ void deletar_AVL(no *p){ // FALAR COM ISAAC SOBRE O APAGAR_ITEM()
         apagar_item(&(p->info)); // Apaga o item (conteudo)
         free(p); // Libera o no da memoria
     }
+}
+
+
+int retorna_info(no *p) {
+    return get_valor(p->info);
+}
+
+no *retorna_filho_esq(no *p) {
+    return p->esq;
+}
+
+no *retorna_filho_dir(no *p) {
+    return p->dir;
 }

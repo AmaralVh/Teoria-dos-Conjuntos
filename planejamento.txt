@@ -11,5 +11,5 @@ Operações Básicas:
 
 Operações Específicas:
     - Pertence (Verifica se item pertence à árvore) OK
-    - União
-    - Intersecção
+    - União OK
+    - Intersecção OK

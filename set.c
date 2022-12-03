@@ -71,11 +71,38 @@ void set_imprimir(SET *s) {
 }
 
 
+void set_percorre(no *p, SET *conjunto_b, SET *conjunto_c, int operacao){
+
+    if(p != NULL){
+        switch (operacao) {
+            case 0:
+                if(set_pertence(conjunto_b, retorna_info(p))) {
+                    set_inserir(conjunto_c, retorna_info(p));
+                }
+                break;
+            
+            case 1:
+                if(!set_pertence(conjunto_b, retorna_info(p))) {
+                    set_inserir(conjunto_c, retorna_info(p));
+                }
+                break;
+            case 2:
+                set_inserir(conjunto_c, retorna_info(p));
+        }
+
+        // percorrendo recursivamente:
+        set_percorre(retorna_filho_esq(p), conjunto_b, conjunto_c, operacao);
+                
+        set_percorre(retorna_filho_dir(p), conjunto_b, conjunto_c, operacao);
+    }
+}
+
+
 // verificando interseccoes entre conjuntos
 SET *set_interseccao(SET *A, SET *B) {
     // Conjunto C = interseccao
     SET *C = set_criar();
-    avl_percorre(A->conjunto->raiz, B, C, 0);
+    set_percorre(A->conjunto->raiz, B, C, 0);
 
     if (C->conjunto->raiz == NULL)
         printf(" Vazio \n");
@@ -89,8 +116,8 @@ SET *set_uniao(SET *A, SET *B) {
 
     SET *C = set_criar();
 
-    avl_percorre(A->conjunto->raiz, A, C, 2);
-    avl_percorre(B->conjunto->raiz, A, C, 1);
+    set_percorre(A->conjunto->raiz, A, C, 2);
+    set_percorre(B->conjunto->raiz, A, C, 1);
     printf("Acabei de percorrer e preencher a uniao.\n");
 
     return C;
