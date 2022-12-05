@@ -4,10 +4,11 @@
 #include <assert.h>
 #include "avl.h"
 
+// Estrutura de um no do avl:
 struct no_t {
     no *esq, *dir;
     item *info;
-    int fb;
+    int fb; // Fator de balanceamento
 };
 
 
@@ -20,7 +21,7 @@ avl *avl_criar() {
     return p;
 }
 
-// remodelando caso rotacao EE
+// Rotacao EE:
 no *rotacao_EE(no *desb) {
     no *aux = desb->dir;
     desb->dir = aux->esq;
@@ -29,7 +30,7 @@ no *rotacao_EE(no *desb) {
     return aux;
 }
 
-// remodelando caso a rotacao DD
+// Rotacao DD:
 no *rotacao_DD (no *desb){
     no *aux = desb->esq;
     desb->esq = aux->dir;
@@ -37,14 +38,14 @@ no *rotacao_DD (no *desb){
 
     return aux;
 }
-// remodelando caso haja 2 rotacao 
-// caso ED
+
+// Rotacao ED (esquerda e direita):
 no *rotacao_ED(no *desb){
     desb->esq = rotacao_EE(desb->esq);
     return rotacao_DD(desb);
 }
 
-// caso DE
+// Rotacao DE (direita e esquerda):
 no *rotacao_DE(no *desb){
     desb->dir = rotacao_DD(desb->dir);
     return rotacao_EE(desb);
@@ -130,7 +131,6 @@ no *avl_insere(no *raiz, item *x, int *flag) {
             }
         } else { // Achou um elemento existente igual ao que se quer inserir.
             printf("Elemento ja existe no conjunto!\n");
-            return NULL;
         }
     } else { // Arvore vazia, entao insere elemento na raiz.
         raiz = (no *)malloc(sizeof(no));
@@ -144,7 +144,7 @@ no *avl_insere(no *raiz, item *x, int *flag) {
     return raiz;
 }
 
-
+// Funcao que realiza o balanceamento para a esquerda (utilizada na remocao):
 no *balanceamento_para_esquerda(no *p, int *h) {
     switch(p->fb) {
         case 1: // Altura foi alterada.
@@ -187,6 +187,7 @@ no *balanceamento_para_esquerda(no *p, int *h) {
     return p;
 }
 
+// Funcao que realiza o balanceamento para a direita (utilizada na remocao):
 no *balanceamento_para_direita(no *p, int *h) {
     switch(p->fb) {
         case -1: // Altura foi alterada.
@@ -229,7 +230,7 @@ no *balanceamento_para_direita(no *p, int *h) {
     return p;
 }
 
-
+// Funcao que busca o maior da esquerda e troca com a raiz:
 no *busca_e_remove(no *p, no *no_chave, int *h) {
     no *aux;
 
@@ -304,22 +305,23 @@ bool avl_busca(no *raiz, int chave) {
     }
 }
 
-
-
+// Funcao recursiva de imprimir avl:
 void avl_imprimir(no *p){
     if(p != NULL){
         printf("%d(", get_valor(p->info));
-        // chamando recursivamente para impressao
+        // Chamando recursivamente para impressao:
         avl_imprimir(p->esq);
         printf(",");
         avl_imprimir(p->dir);
         printf(")");
     }
-
+    // Note que o percurso e pre-ordem/em profundidade.
+    // Note tambem que colocamos parenteses e virgula para indicar 
+    // relacionamento dos filhos com seu respectivo pai.
 }
 
 
-//verificando se esta vazia
+// Verificando se esta vazia:
 bool esta_vazia(avl *p){
     assert(p != NULL);
 
@@ -329,7 +331,8 @@ bool esta_vazia(avl *p){
     return false;
 }
 
-void deletar_AVL(no *p){ // FALAR COM ISAAC SOBRE O APAGAR_ITEM()
+// Funcao recursiva que deleta avl:
+void deletar_AVL(no *p){ 
     if(p != NULL){
         deletar_AVL(p->esq);
         deletar_AVL(p->dir);
@@ -338,15 +341,17 @@ void deletar_AVL(no *p){ // FALAR COM ISAAC SOBRE O APAGAR_ITEM()
     }
 }
 
-
+// Funcao que retorna a informacao de um no:
 int retorna_info(no *p) {
     return get_valor(p->info);
 }
 
+// Funcao que retorna o filho esquerdo de um no:
 no *retorna_filho_esq(no *p) {
     return p->esq;
 }
 
+// Funcao que retorna o filho direito de um no:
 no *retorna_filho_dir(no *p) {
     return p->dir;
 }

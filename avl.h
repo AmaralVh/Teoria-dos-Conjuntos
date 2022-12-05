@@ -7,6 +7,7 @@
 
 typedef struct no_t no;
 
+// Estrutura de um avl:
 typedef struct avl_t {
     no *raiz;
 } avl;
